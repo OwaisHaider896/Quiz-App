@@ -1,60 +1,48 @@
 import React from "react";
 
-// const Button = ({ answer, className }) => (
-//   <button
-//     className={`bg-purple-600 rounded shadow-lg  text-white w-5/12 mb-4 p-4 ${className}`}
-//   >
-//     {answer}
-//   </button>
-// );
-
 const Questionire = ({
   handleAnswer,
+  handleNextQuestion,
+  showAnswer,
   data: { question, correct_answer, incorrect_answers }
 }) => {
   const shuffledAnswer = [correct_answer, ...incorrect_answers].sort(
     () => Math.random() - 0.5
   );
   return (
-    <div>
-      <div className=" mt-4 bg-purple-600 text-white p-10 shadow-md rounded-lg">
+    <div className="flex flex-col">
+      <div className=" mt-4 bg-white text-purple-800 p-10 shadow-md rounded-lg">
         <h1
           className="text-2xl "
           dangerouslySetInnerHTML={{ __html: question }}
         ></h1>
       </div>
-      <div className="flex flex-wrap justify-around mt-4">
-        {shuffledAnswer.map((answer) => (
-          <button
-            className="p-4 rounded shadow text-white bg-purple-800"
-            onClick={() => handleAnswer(answer)}
-            answer={shuffledAnswer[0]}
-            dangerouslySetInnerHTML={{ __html: answer }}
-          />
-        ))}
-
-        {/* <Button
-          className={
-            correct_answer === shuffledAnswer[1] ? "bg-yellow-500" : ""
-          }
-          onClick={() => handleAnswer(shuffledAnswer[1])}
-          answer={shuffledAnswer[1]}
-        />
-        <Button
-          className={
-            correct_answer === shuffledAnswer[2] ? "bg-yellow-500" : ""
-          }
-          onClick={() => handleAnswer(shuffledAnswer[2])}
-          answer={shuffledAnswer[2]}
-        />
-        <Button
-          className={
-            correct_answer === shuffledAnswer[3] ? "bg-yellow-500" : ""
-          }
-          onClick={() => handleAnswer(shuffledAnswer[3])}
-          answer={shuffledAnswer[3]}
-        /> */}
+      <div className="grid grid-cols-2 gap-6 mt-6">
+        {shuffledAnswer.map((answer) => {
+          const textColor = showAnswer
+            ? answer === correct_answer
+              ? "text-green-500"
+              : "text-red-500"
+            : "text-purple-800";
+          // const textColor = showAnswer ? 'text-white' : 'text-purple-800'
+          return (
+            <button
+              className={`${textColor} p-4 rounded shadow  bg-white`}
+              onClick={() => handleAnswer(answer)}
+              answer={shuffledAnswer[0]}
+              dangerouslySetInnerHTML={{ __html: answer }}
+            />
+          );
+        })}
       </div>
+      {showAnswer && (
+        <button
+          onClick={handleNextQuestion}
+          className="p-4 ml-auto rounded shadow bg-purple-800 mt-6 text-white"
+        >
+          Next Question
+        </button>
+      )}
     </div>
   );
 };
