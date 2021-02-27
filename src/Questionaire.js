@@ -1,12 +1,12 @@
 import React from "react";
 
-const Button = ({ answer, className }) => (
-  <button
-    className={`bg-purple-600 rounded shadow-lg  text-white w-5/12 mb-4 p-4 ${className}`}
-  >
-    {answer}
-  </button>
-);
+// const Button = ({ answer, className }) => (
+//   <button
+//     className={`bg-purple-600 rounded shadow-lg  text-white w-5/12 mb-4 p-4 ${className}`}
+//   >
+//     {answer}
+//   </button>
+// );
 
 const Questionire = ({
   handleAnswer,
@@ -24,14 +24,16 @@ const Questionire = ({
         ></h1>
       </div>
       <div className="flex flex-wrap justify-around mt-4">
-        <Button
-          className={
-            correct_answer === shuffledAnswer[0] ? "bg-yellow-500" : ""
-          }
-          onClick={() => handleAnswer(shuffledAnswer[0])}
-          answer={shuffledAnswer[0]}
-        />
-        <Button
+        {shuffledAnswer.map((answer) => (
+          <button
+            className="p-4 rounded shadow text-white bg-purple-800"
+            onClick={() => handleAnswer(answer)}
+            answer={shuffledAnswer[0]}
+            dangerouslySetInnerHTML={{ __html: answer }}
+          />
+        ))}
+
+        {/* <Button
           className={
             correct_answer === shuffledAnswer[1] ? "bg-yellow-500" : ""
           }
@@ -51,7 +53,7 @@ const Questionire = ({
           }
           onClick={() => handleAnswer(shuffledAnswer[3])}
           answer={shuffledAnswer[3]}
-        />
+        /> */}
       </div>
     </div>
   );
