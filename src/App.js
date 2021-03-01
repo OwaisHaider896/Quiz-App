@@ -20,7 +20,6 @@ export default function App() {
 
   const handleAnswer = (answer) => {
     if (!showAnswer) {
-      // setCurrentIndex(currentIndex + 1);
       if (answer === questions[currentIndex].correct_answer) {
         setScore(score + 1);
       }

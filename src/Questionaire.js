@@ -24,7 +24,6 @@ const Questionire = ({
               ? "text-green-500"
               : "text-red-500"
             : "text-purple-800";
-          // const textColor = showAnswer ? 'text-white' : 'text-purple-800'
           return (
             <button
               className={`${textColor} p-4 rounded shadow  bg-white`}
